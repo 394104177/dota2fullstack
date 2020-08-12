@@ -10,7 +10,13 @@ Vue.prototype.$http = http
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-
+Vue.mixin({
+  data(){
+      return  {
+        token:{'Authorization':localStorage.token}
+      }  
+  }
+})
 new Vue({
   router,
   render: h => h(App)

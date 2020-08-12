@@ -11,6 +11,7 @@
           :action="$http.defaults.baseURL+'/upload'"
           :show-file-list="false"
           :on-success="afterUpload"
+          :headers="getToken()"
         >
           <img v-if="model.icon" :src="model.icon" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -56,6 +57,9 @@ export default {
         },
          afterUpload(res){
            this.model.icon = res.url
+        },
+        getToken(){
+            return this.token
         }
     },
     created(){
@@ -65,7 +69,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

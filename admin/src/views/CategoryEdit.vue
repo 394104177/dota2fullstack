@@ -4,7 +4,10 @@
       <el-form label-width="120px" @submit.native.prevent="save">
            <el-form-item label="上级分类">
               <el-select v-model="model.parent" >
-                  <el-option v-for="item in parentOption"  :key="item._id" :value="item._id" :label="item.name"></el-option>
+                  <el-option v-for="item in parentOption"  
+                  :key="item._id" 
+                  :value="item._id" 
+                  :label="item.name"></el-option>
               </el-select>
           </el-form-item>
           <el-form-item label="名称">
@@ -22,7 +25,7 @@ export default {
     data(){
         return {
             model:{
-               name:''
+               name:'',
             },
             parentOption:[]
         }
@@ -62,5 +65,7 @@ export default {
 </script>
 
 <style>
-
+.el-icon-plus.avatar-uploader-icon{
+      line-height: 178px;
+  }
 </style>
