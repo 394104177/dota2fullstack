@@ -3,9 +3,9 @@ module.exports = app => {
   const express = require('express')
   const jwt = require('jsonwebtoken')
   const assert = require('http-assert')
-  const router = express.Router({
+  const router = express.Router({ // 子路由
     mergeParams: true
-  }) // 子路由
+  })
   // 资源创建
   router.post('/', async (req, res) => {
     const Model = require(`../../models/${inflection.classify(req.params.resource)}`)
@@ -23,7 +23,8 @@ module.exports = app => {
   // 资源修改
   router.put('/:id', async (req, res) => {
     const Model = require(`../../models/${inflection.classify(req.params.resource)}`)
-    const model = await Model.findByIdAndUpdate(req.params.id, req.body) // 前者为查询字段，后者为更新内容
+
+    const model = await Model.replaceOne({ _id: req.params.id }, req.body) // 前者为查询字段，后者为更新内容
     res.send(model)
   })
   // 资源查询

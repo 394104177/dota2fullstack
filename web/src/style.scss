@@ -1,0 +1,200 @@
+$colors:(primary:rgba(15, 15, 15, 0.35),
+    "white":#fff,
+    "black":#000,
+    "lightblue":rgb(0,192,255),
+    "lightgrey":#827c79
+    );
+// fontsize
+$base-font-size:1rem;
+$fonts:(xs:0.7692, //10px
+    sm:0.9231, //12px
+    md:1, //13px,
+    lg:1.0769, //14px
+    xl:1.2308 //16px
+);
+
+@each $sizekey,
+$size in $fonts {
+    .fs-#{$sizekey} {
+        font-size: $size*$base-font-size;
+    }
+}
+
+//text-align
+@each $var in (left, center, right) {
+    .text-#{$var} {
+        text-align: $var;
+    }
+}
+//text-color
+@each $key ,$var in $colors {
+    .text-#{$key} {
+        color: $var;
+    }
+}
+//flex
+.d-flex {
+    display: flex;
+}
+
+.flex-colum {
+    flex-direction: column;
+}
+
+$flex-jc:(start:flex-start,
+    end:flex-end,
+    center:center,
+    between:space-between,
+    around:space-around,
+);
+
+@each $key,
+$value in $flex-jc {
+    .jc-#{$key} {
+        justify-content: $value;
+    }
+}
+
+
+$flex-ai:(start:flex-start,
+    end:flex-end,
+    center:center,
+    stretch:stretch);
+
+@each $key,
+$value in $flex-ai {
+    .ai-#{$key} {
+        align-items: $value;
+    }
+}
+
+
+
+.flex-1 {
+    flex: 1;
+}
+
+
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+
+//spacing
+$spacing-types:(m:margin,
+    p:padding);
+
+$spacing-directions:(t:top,
+    r:right,
+    b:bottom,
+    l:left);
+
+$spacing-base-sizes:1rem;
+
+$spacing-sizes:(0:0,
+    1:0.25,
+    2:0.5,
+    3:1,
+    4:1.5,
+    5:3);
+
+@each $tkey,
+$tvalue in $spacing-types {
+
+    //m-1
+    @each $skey,
+    $svalue in $spacing-sizes {
+        .#{$tkey}-#{$skey} {
+            #{$tvalue}: $svalue*$spacing-base-sizes
+        }
+    }
+
+    //mx-1
+    @each $skey,
+    $svalue in $spacing-sizes {
+        .#{$tkey}x-#{$skey} {
+            #{$tvalue}: 0 $svalue*$spacing-base-sizes
+        }
+
+        .#{$tkey}y-#{$skey} {
+            #{$tvalue}: $svalue*$spacing-base-sizes 0
+        }
+    }
+
+
+    //mt-1
+    @each $dkey,
+    $dvalue in $spacing-directions {
+
+        @each $skey,
+        $svalue in $spacing-sizes {
+            .#{$tkey}#{$dkey}-#{$skey} {
+                #{$tvalue}-#{$dvalue}: $svalue*$spacing-base-sizes
+            }
+        }
+    }
+
+}
+
+html {
+    font-size: 14px;
+}
+.clear::after{
+    content: '';
+    clear: both;
+    display: block;
+}
+#dota2_nav {
+
+    #nav_main {
+        height: 80px;
+        background: url('./assets/data2.home.nav.bg.png') no-repeat;
+        .nav_content {
+            width: 1100px;
+            height: 100%;
+            margin: auto;
+            ul{
+                height: 100%;
+                li{
+                    a{
+                        display: block;
+                        padding: 30px;
+                        &:hover{
+                            background-color: #000;
+                            color: map-get($colors, 'lightblue');
+                        }
+                        span{
+                            display: block;
+                        }
+                        .nav_link{
+                            font-size: 12px;
+                            margin-top: 2px;
+                            transform: scale(0.75);
+                        }
+                    }
+                }
+            }
+           
+
+            
+           
+        }
+    }
+
+    #nav_footer {
+        position: relative;
+
+        img {
+            width: calc(50%);
+        }
+
+        .mask {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 15, 15, 0.5);
+            position: absolute;
+            top: 0;
+        }
+    }
+}

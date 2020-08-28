@@ -33,10 +33,28 @@ const schema = new mongoose.Schema({
     ref: 'item'
   }],
   tips: { type: String },
-  partners: [{
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Hero'
-  }]
+  OpponentsAndTeammates: {
+    opp: {
+      restraint: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'hero'
+      }],
+      anti: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'hero'
+      }]
+    },
+    team: {
+      restraint: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'hero'
+      }],
+      anti: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'hero'
+      }]
+    }
+  }
 })
 
 module.exports = mongoose.model('Hero', schema)
