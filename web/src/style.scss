@@ -2,7 +2,9 @@ $colors:(primary:rgba(15, 15, 15, 0.35),
     "white":#fff,
     "black":#000,
     "lightblue":rgb(0,192,255),
-    "lightgrey":#827c79
+    "lightgrey":#827c79,
+    'grey':rgb(33,33,33),
+    'lightdark':rgb(10,10,10)
     );
 // fontsize
 $base-font-size:1rem;
@@ -37,7 +39,7 @@ $size in $fonts {
     display: flex;
 }
 
-.flex-colum {
+.flex-col {
     flex-direction: column;
 }
 
@@ -139,6 +141,9 @@ $tvalue in $spacing-types {
 
 html {
     font-size: 14px;
+    body {
+        font: 12px/1.5 Arial, 'Droid Sans', 'Hiragino Sans GB', 'Microsoft YaHei';
+    }
 }
 .clear::after{
     content: '';
@@ -157,7 +162,11 @@ html {
             ul{
                 height: 100%;
                 li{
-                    a{
+                    position: relative;
+                    &:hover{
+                        background-color: #000;
+                    }
+                    >a{
                         display: block;
                         padding: 30px;
                         &:hover{
@@ -173,18 +182,34 @@ html {
                             transform: scale(0.75);
                         }
                     }
+                    &:hover .pop{
+                        display: block;
+                    }
+                    .pop{
+                        display: none;
+                        position: absolute;
+                        top: 84px;
+                        z-index: 1;
+                        box-sizing: border-box;
+        
+                        a{
+                            background-color:  map-get($colors,"grey");
+                            box-sizing: border-box;
+                            padding: 20px 30px;
+                            display: block;
+                            &:hover{
+                                color: map-get($colors, 'lightblue');
+                            }
+                        }
+                    }
                 }
-            }
-           
-
-            
-           
+            }   
         }
     }
 
     #nav_footer {
         position: relative;
-
+        font-size:0px;
         img {
             width: calc(50%);
         }
@@ -192,9 +217,55 @@ html {
         .mask {
             width: 100%;
             height: 100%;
-            background-color: rgba(15, 15, 15, 0.5);
+            background-color: rgba(15, 15, 15, 0.9);
             position: absolute;
             top: 0;
         }
     }
+}
+#dota2_main{
+    background-color: map-get($colors,"grey");
+}
+#dota2_footer{
+    .footer_scrollup{
+        background-color: map-get($colors, 'lightdark' );
+    span{
+        line-height: 25px;
+    }
+    }
+    .footer_footer{
+        height: 180px;
+        background-color: #000;
+    }
+}
+
+.hero{
+    .hero_container{
+        header{
+            height: 40px;
+            background-color: #0A0A0A;
+            ul {
+                height: 100%;
+                margin: 0 auto;
+                width: 1100px;
+                li{
+              
+                color: white;
+                font-size: 12px;
+                color: #AAAAAA;
+                    a{
+                        padding: 12px 20px;
+                         &:hover{
+                            background-color: rgb(26, 26, 26);
+                        }
+                    }
+                }
+            }
+        }
+        main{
+            background-color: rgb(26, 26, 26);
+           
+        }
+    }
+  
 }

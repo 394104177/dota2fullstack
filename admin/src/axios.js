@@ -2,7 +2,7 @@ import axios from "axios"
 import vue from 'vue'
 import router from './router'
 const http = axios.create({
-    baseURL:"http://localhost:3000/admin/api"
+    baseURL:process.env.VUE_APP_api || '/admin/api'
 })
 http.interceptors.request.use(req=>{
 

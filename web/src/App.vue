@@ -7,7 +7,16 @@
                 <img src="./assets/logo.png" alt="">
                 <li><router-link to="/" class="text-center"><span>首页</span><span class="nav_link">HOME</span></router-link></li>
                 <li><router-link to="/news" class="text-center"><span>资讯</span><span class="nav_link">NEWS</span></router-link></li>
-                <li><router-link to="/data" class="text-center"><span>资料</span><span class="nav_link">DATA</span></router-link></li>
+                <li>
+                    <router-link to="/data/hero" class="text-center">
+                        <span>资料</span>
+                        <span class="nav_link">DATA</span>
+                    </router-link>
+                    <div class="pop">
+                            <router-link to="/heros">英雄</router-link>
+                            <router-link to="/items">物品</router-link>
+                    </div>
+                </li>
                 <li><router-link to="/download" class="text-center"><span>下载</span><span class="nav_link">DOWNLOAD</span></router-link></li>
             </ul>
         </div>
@@ -18,7 +27,13 @@
           <div class="mask"></div>
       </div>
     </div>
-    <router-view />
+    <div id="dota2_main">
+   <router-view />
+    </div>
+    <div id="dota2_footer">
+        <div title="回到顶部" class="footer_scrollup text-center"><span class="text-white">^</span></div>
+        <div class="footer_footer"></div>
+    </div>
   </div>
 </template>
 

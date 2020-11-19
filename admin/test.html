@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"  >{{d}}</div>
+ 
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+
+        let app = new Vue({
+            data:{
+                a:4,
+                c:5
+            },
+          
+            // watch:{
+            //     'a.b':{
+            //         handler:'clg',
+            //         immediate:false
+
+            //     }
+            // },
+            // methods:{
+            //     clg(){
+            //         console.log('x')
+            //     },
+            //     myclick(){
+            //         this.$emit('hook:Click')
+            //     }
+            
+
+            // },
+            computed:{
+                d:function(){
+                    return this.a+this.c
+                }
+            },
+            // beforeCreate(){
+            //     console.log(123)
+            //     this.$on('hook:Click',test)
+              
+            // },
+            // beforeMount(){
+            //     console.log(this.$el)
+            // }
+        })
+
+        app.$mount('#app')
+        function test(){
+                    console.log('click')
+                }
+    </script>
+    <script>
+
+
+    </script>
+</body>
+</html>

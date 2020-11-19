@@ -8,7 +8,7 @@ import http from "./axios"
 
 Vue.prototype.$http = http
 Vue.use(ElementUI)
-
+console.log(process.env)
 Vue.config.productionTip = false
 Vue.mixin({
   data(){
