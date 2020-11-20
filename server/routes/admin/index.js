@@ -102,9 +102,10 @@ module.exports = app => {
     if (Model.modelName === 'Category') {
       queryOption.populate = 'parent'
     } else if (Model.modelName === 'Hero') { // 去除队友和敌人数据
+      queryOption.populate = 'categories'
       const skill = req.query.skill || 'all'
       const ladder = req.query.ladder || 'all'
-      const model = await Model.find({}, `icon name rate  cs.${skill}.${ladder} dmg.${skill}.${ladder} kda.${skill}.${ladder} gpm.${skill}.${ladder} xpm.${skill}.${ladder} played.${skill}.${ladder}`)
+      const model = await Model.find({ }, `icon name rate  cs.${skill}.${ladder} dmg.${skill}.${ladder} kda.${skill}.${ladder} gpm.${skill}.${ladder} xpm.${skill}.${ladder} played.${skill}.${ladder}`).setOptions(queryOption)
       res.send(model)
       return
     } else if (Model.modelName === 'item') {
