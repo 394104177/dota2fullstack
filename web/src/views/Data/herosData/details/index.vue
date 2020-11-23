@@ -4,9 +4,10 @@
       <header>
         <ul class="d-flex ai-center">
           <li>
-              <router-link :to="`/heros/details/${$route.params.id}/statistics`">
-              综合统计</router-link>
-         </li>
+            <router-link :to="`/heros/details/${$route.params.id}/statistics`">
+              综合统计</router-link
+            >
+          </li>
           <li>
             <router-link :to="`/heros/details/${$route.params.id}/skills`"
               >技能加点</router-link
@@ -35,88 +36,93 @@
         </ul>
       </header>
       <main style="min-height: 1000px" class="d-flex">
-       <keep-alive><router-view></router-view></keep-alive> 
-        <div class="accordion text-white" v-if="singleHero">
-          <div class="talent">
-            <div class="talent_title">天赋树</div>
-            <div class="talent_self">
-              <div class="talent_text talent_text_left">
-                {{ singleHero ? singleHero.talent[0].l : "" }}
+       <router-view></router-view>
+        <transition name="fade">
+ 
+          <div  class="accordion text-white" v-if="singleHero">
+               <div class="mask"></div>
+            <div class="talent">
+              <div class="talent_title">天赋树</div>
+              <div class="talent_self">
+                <div class="talent_text talent_text_left">
+                  {{ singleHero ? singleHero.talent[0].l : "" }}
+                </div>
+                <div class="talent_level">10</div>
+                <div class="talent_text talent_text_right">
+                  {{ singleHero ? singleHero.talent[0].r : "" }}
+                </div>
               </div>
-              <div class="talent_level">10</div>
-              <div class="talent_text talent_text_right">
-                {{ singleHero ? singleHero.talent[0].r : "" }}
+              <div class="talent_self">
+                <div class="talent_text talent_text_left">
+                  {{ singleHero ? singleHero.talent[1].l : "" }}
+                </div>
+                <div class="talent_level">15</div>
+                <div class="talent_text talent_text_right">
+                  {{ singleHero ? singleHero.talent[1].r : "" }}
+                </div>
+              </div>
+              <div class="talent_self">
+                <div class="talent_text talent_text_left">
+                  {{ singleHero ? singleHero.talent[2].l : "" }}
+                </div>
+                <div class="talent_level">20</div>
+                <div class="talent_text talent_text_right">
+                  {{ singleHero ? singleHero.talent[2].r : "" }}
+                </div>
+              </div>
+              <div class="talent_self">
+                <div class="talent_text talent_text_left">
+                  {{ singleHero ? singleHero.talent[3].l : "" }}
+                </div>
+                <div class="talent_level">25</div>
+                <div class="talent_text talent_text_right">
+                  {{ singleHero ? singleHero.talent[3].r : "" }}
+                </div>
               </div>
             </div>
-            <div class="talent_self">
-              <div class="talent_text talent_text_left">
-                {{ singleHero ? singleHero.talent[1].l : "" }}
-              </div>
-              <div class="talent_level">15</div>
-              <div class="talent_text talent_text_right">
-                {{ singleHero ? singleHero.talent[1].r : "" }}
-              </div>
-            </div>
-            <div class="talent_self">
-              <div class="talent_text talent_text_left">
-                {{ singleHero ? singleHero.talent[2].l : "" }}
-              </div>
-              <div class="talent_level">20</div>
-              <div class="talent_text talent_text_right">
-                {{ singleHero ? singleHero.talent[2].r : "" }}
-              </div>
-            </div>
-            <div class="talent_self">
-              <div class="talent_text talent_text_left">
-                {{ singleHero ? singleHero.talent[3].l : "" }}
-              </div>
-              <div class="talent_level">25</div>
-              <div class="talent_text talent_text_right">
-                {{ singleHero ? singleHero.talent[3].r : "" }}
-              </div>
-            </div>
-          </div>
-          <div
-            class="skill"
-            v-for="skills in singleHero.skills"
-            :key="skills._id"
-          >
             <div
-              style="
-                font-weight: bold;
-                margin-left: 10px;
-                margin-top: 10px;
-                width: 93%;
-                height: 62px;
-                line-height: 42px;
-                font-size: 16px;
-                font-weight: 500;
-              "
+              class="skill"
+              v-for="skills in singleHero.skills"
+              :key="skills._id"
             >
-              <img
-                :src="skills.icon"
+              <div
                 style="
-                  display: inline-block;
-                  vertical-align: middle;
-                  margin-right: 15px !important;
-                  padding: 2px;
-                  width: 45px;
+                  font-weight: bold;
+                  margin-left: 10px;
+                  margin-top: 10px;
+                  width: 93%;
+                  height: 62px;
+                  line-height: 42px;
+                  font-size: 16px;
+                  font-weight: 500;
                 "
-              />
-              {{ skills.name }}
+              >
+                <img
+                  :src="skills.icon"
+                  style="
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 15px !important;
+                    padding: 2px;
+                    width: 45px;
+                  "
+                />
+                {{ skills.name }}
+              </div>
+              <div
+                style="
+                  margin-left: auto;
+                  margin-right: auto;
+                  padding: 10px;
+                  line-height: 20px;
+                "
+                v-html="skills.descrition"
+                class="text-left"
+              ></div>
             </div>
-            <div
-              style="
-                margin-left: auto;
-                margin-right: auto;
-                padding: 10px;
-                line-height: 20px;
-              "
-              v-html="skills.descrition"
-              class="text-left"
-            ></div>
           </div>
-        </div>
+   
+        </transition>
       </main>
     </div>
   </div>
@@ -129,8 +135,8 @@
 export default {
     data:()=>{
         return {
-            heroDatas:null
-           
+            heroDatas:null,
+           show:false
         }
     },
 
@@ -145,13 +151,21 @@ export default {
     // 如果路由有变化，会再次执行该方法
         '$route': 'fetchDatas'
     },
-
+   beforeEach(){
+        console.log('berforeEach')
+   },
     beforeRouteUpdate (to, from, next) {
     // 在当前路由改变，但是该组件被复用时调用
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
     // 可以访问组件实例 `this`
+    // console.log('route',this.$route)
+    // this.$route.path = window.decodeURI(to.fullPath) 
+  
     console.log('indexbefore',to,from)
+    // console.log( to.fullPath,window.decodeURI(to.fullPath))
+    // to.fullPath = window.decodeURI(to.fullPath)
+    // window.location.href ='/#'+ window.decodeURI(to.fullPath)
     next()
     },
 
@@ -166,11 +180,12 @@ export default {
        }).then(res=>{
          
            this.heroDatas = res.data
+           this.show = true
        })
-        },
+    },
         
         fetchDatas(){
-            console.log('indexRouter')
+          
             this.$http.get(`/rest/heroes`,{
            headers:{
                authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMmFhMDZhMmQxODliMzY3NGRiYmI5OCIsImlhdCI6MTU5Njc1MzUwNH0.cVGuBl5a_7i_ORPxOMWkbYLbZrAl6qdWacO_N92PUBQ"
@@ -187,7 +202,7 @@ export default {
         }
     },
     created(){
-       
+     
       this.fetchDatas()
     }
   
@@ -290,4 +305,27 @@ export default {
         background: linear-gradient(to top, rgb(26, 26, 26) 0%, rgb(35, 35, 35) 41%);
     }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 2s  , width .5s;
+  width: 100%;
+ &.mask{
+       width: 0;
+     height: 0;
+     transition: background-color 2s  , width .5s;
+     background-color:blue;
+ }
+
+}
+
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    width: 0px;
+  opacity: 0;
+   &.mask{
+   
+      width: 100%;
+     height: 100%;
+     background-color: transparent;
+ }
+}
 </style>

@@ -27,8 +27,7 @@ module.exports = app => {
     const Model = require(`../../models/${inflection.classify(req.params.resource)}`)
 
     const model = await Model.updateOne({ _id: req.params.id }, req.body) // 前者为查询字段，后者为更新内容
-    console.log(req.body, req.params.id)
-    console.log(model)
+
     res.send(model)
   })
   // 资源查询
@@ -87,7 +86,6 @@ module.exports = app => {
       for (let i = 0; i < item.played[skill][ladder].length; i++) {
         const str = mongoose.Types.ObjectId(item.played[skill][ladder][i].hero).toString()
         if (str === req.params.id) {
-          console.log('finded')
           return { name: item.name, icon: item.icon, playeds: item.played[skill][ladder][i].playeds, winRates: item.played[skill][ladder][i].winRates }
         }
       }

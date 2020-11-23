@@ -11,8 +11,8 @@
                         <img :src="slotProps.item" alt="英雄头像" style="width:50px; height:30px; margin-top:5px" >
                     </template>
            </data-coloum>
-            <data-coloum thing="items" label="使用次数"  :prop='`played.${skill}.${ladder}`' width="300"/>
-            <data-coloum thing="items" label="胜率"  :prop='`rate.${skill}.${ladder}`' width="300"/>
+            <data-coloum thing="items" label="使用次数"  :prop='`played.${skill}.${ladder}`' width="300" show='number'/>
+            <data-coloum thing="items" label="胜率"  :prop='`rate.${skill}.${ladder}`' width="300" show='percent'/>
         
         </data-list>
     </div>

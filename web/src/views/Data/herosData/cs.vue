@@ -13,7 +13,7 @@
                     </template>
            </data-coloum>
             <data-coloum label="正补/10分钟"  :prop='`cs.${skill}.${ladder}.c`' width="300"/>
-            <data-coloum label="反补总数" :prop='`played.${skill}.${ladder}.s`' width="300"/>
+            <data-coloum label="反补总数" :prop='`played.${skill}.${ladder}.s`' width="300" show='number'/>
         
         </data-list>
     </div>

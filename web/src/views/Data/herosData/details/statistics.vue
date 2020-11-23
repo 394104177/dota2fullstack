@@ -1,5 +1,4 @@
 <template>
-
   <div
     style="
       width: 740px;
@@ -9,165 +8,218 @@
       position: relative;
     "
   >
-   <button @click="show= !show">bottom</button>
-   <transition>
-       <div v-if="show">
-           hellsadasldhasldk
-       </div>
-   </transition>
-  <transition >
-     <div v-if="show">
-    <dataSkill
- 
-      :datas="itemList ? itemList.addSkills.all.all[0] : null"
-    >
-    </dataSkill>
- </div>
-</transition>
-    <data-list v-if="itemList" :datas="itemList.itemData">
-      <data-coloum
-        thing="items"
-        label="装备"
-        prop="name"
-        width="20%"
-      ></data-coloum>
+    <transition name="fade">
+      <div v-if="show">
+        <dataSkill :datas="itemList ? itemList.addSkills.all.all[0] : null">
+        </dataSkill>
+      </div>
+    </transition>
 
-      <data-coloum thing="items" label="头像" prop="icon" width="20%">
-        <template v-slot="slotProps">
-          <img
-            :src="slotProps.item"
-            alt="英雄头像"
-            style="width: 60px; height: 30px; margin-top: 5px"
-          />
-        </template>
-      </data-coloum>
-      <data-coloum
-        thing="items"
-        label="使用次数"
-        prop="playeds"
-        width="30%"
-      ></data-coloum>
-      <data-coloum
-        thing="items"
-        label="胜率"
-        prop="winRates"
-        width="30%"
-      ></data-coloum>
-    </data-list>
+    <transition name="fade">
+      <data-list v-show="show" v-if="itemList" :datas="itemList.itemData">
+        <data-coloum
+          thing="items"
+          label="装备"
+          prop="name"
+          width="20%"
+        ></data-coloum>
 
-    <div style="position:relative">
-      <h1 class="title-hori">
-        <span style="font-size: 14px; font-weight: 500">
-         最克制{{ singelHero?singelHero.name:'' }}的对手</span
-        >
-        <span style="float: right; margin-right: 40px">more</span>
-      </h1>
-
-      <data-list
-        v-if="itemList"
-        :datas="itemList.OpponentsAndTeammates.opp.all.all.filter((i,k)=>{return k<=4})"
-      >
-        <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
-        <data-coloum label="头像" prop="hero.icon" width="20%">
+        <data-coloum thing="items" label="头像" prop="icon" width="20%">
           <template v-slot="slotProps">
             <img
               :src="slotProps.item"
               alt="英雄头像"
-              style="width: 60px !important; height: 30px; margin-top: 5px"
+              style="width: 60px; height: 30px; margin-top: 5px"
             />
           </template>
         </data-coloum>
-        <data-coloum label="使用次数" prop="playeds" width="30%"></data-coloum>
-        <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
-        <data-coloum label="克制指数" prop="antiRate" width="30%"></data-coloum>
+        <data-coloum
+          thing="items"
+          label="使用次数"
+          prop="playeds"
+          width="30%"
+        ></data-coloum>
+        <data-coloum
+          thing="items"
+          label="胜率"
+          prop="winRates"
+          width="30%"
+        ></data-coloum>
       </data-list>
-    </div>
+    </transition>
 
-     <div style="position:relative">
-      <h1 class="title-hori">
-        <span style="font-size: 14px; font-weight: 500">
-          {{ singelHero?singelHero.name:'' }}最克制的对手</span
+    <transition name="fade">
+      <div style="position: relative"  v-show="show">
+        <h1 class="title-hori">
+          <span style="font-size: 14px; font-weight: 500">
+            最克制{{ singelHero ? singelHero.name : "" }}的对手</span
+          >
+          <span style="float: right; margin-right: 40px">more</span>
+        </h1>
+
+        <data-list
+    
+          v-if="itemList"
+          :datas="
+            itemList.OpponentsAndTeammates.opp.all.all.filter((i, k) => {
+              return k <= 4;
+            })
+          "
         >
-        <span style="float: right; margin-right: 40px">more</span>
-      </h1>
+          <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
+          <data-coloum label="头像" prop="hero.icon" width="20%">
+            <template v-slot="slotProps">
+              <img
+                :src="slotProps.item"
+                alt="英雄头像"
+                style="width: 60px !important; height: 30px; margin-top: 5px"
+              />
+            </template>
+          </data-coloum>
+          <data-coloum
+            label="使用次数"
+            prop="playeds"
+            width="30%"
+          ></data-coloum>
+          <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
+          <data-coloum
+            label="克制指数"
+            prop="antiRate"
+            width="30%"
+          ></data-coloum>
+        </data-list>
+      </div>
+    </transition>
 
-      <data-list
-        v-if="itemList"
-        :datas="itemList.OpponentsAndTeammates.opp.all.all.filter((i,k)=>{return k>4})"
-      >
-        <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
-        <data-coloum label="头像" prop="hero.icon" width="20%">
-          <template v-slot="slotProps">
-            <img
-              :src="slotProps.item"
-              alt="英雄头像"
-              style="width: 60px !important; height: 30px; margin-top: 5px"
-            />
-          </template>
-        </data-coloum>
-        <data-coloum label="使用次数" prop="playeds" width="30%"></data-coloum>
-        <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
-        <data-coloum label="克制指数" prop="antiRate" width="30%"></data-coloum>
-      </data-list>
-    </div>
+    <transition name="fade">
+      <div style="position: relative"  v-show="show">
+        <h1 class="title-hori">
+          <span style="font-size: 14px; font-weight: 500">
+            {{ singelHero ? singelHero.name : "" }}最克制的对手</span
+          >
+          <span style="float: right; margin-right: 40px">more</span>
+        </h1>
 
-    <div  style="position:relative">
-      <h1 class="title-hori">
-        <span style="font-size: 14px; font-weight: 500">
-         最不适合{{ singelHero?singelHero.name:'' }}的队友</span
+        <data-list
+          v-show="show"
+          v-if="itemList"
+          :datas="
+            itemList.OpponentsAndTeammates.opp.all.all.filter((i, k) => {
+              return k > 4;
+            })
+          "
         >
-        <span style="float: right; margin-right: 40px">more</span>
-      </h1>
+          <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
+          <data-coloum label="头像" prop="hero.icon" width="20%">
+            <template v-slot="slotProps">
+              <img
+                :src="slotProps.item"
+                alt="英雄头像"
+                style="width: 60px !important; height: 30px; margin-top: 5px"
+              />
+            </template>
+          </data-coloum>
+          <data-coloum
+            label="使用次数"
+            prop="playeds"
+            width="30%"
+          ></data-coloum>
+          <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
+          <data-coloum
+            label="克制指数"
+            prop="antiRate"
+            width="30%"
+          ></data-coloum>
+        </data-list>
+      </div>
+    </transition>
 
-      <data-list
-        v-if="itemList"
-        :datas="itemList.OpponentsAndTeammates.team.all.all.filter((i,k)=>{return k<=4})"
-      >
-        <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
-        <data-coloum label="头像" prop="hero.icon" width="20%">
-          <template v-slot="slotProps">
-            <img
-              :src="slotProps.item"
-              alt="英雄头像"
-              style="width: 60px !important; height: 30px; margin-top: 5px"
-            />
-          </template>
-        </data-coloum>
-        <data-coloum label="使用次数" prop="playeds" width="30%"></data-coloum>
-        <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
-        <data-coloum label="克制指数" prop="antiRate" width="30%"></data-coloum>
-      </data-list>
-    </div>
+    <transition name="fade">
+      <div style="position: relative"  v-show="show">
+        <h1 class="title-hori">
+          <span style="font-size: 14px; font-weight: 500">
+            最不适合{{ singelHero ? singelHero.name : "" }}的队友</span
+          >
+          <span style="float: right; margin-right: 40px">more</span>
+        </h1>
 
-     <div  style="position:relative; margin-bottom:100px">
-      <h1 class="title-hori">
-        <span style="font-size: 14px; font-weight: 500">
-         最适合{{ singelHero?singelHero.name:'' }}的队友</span
+        <data-list
+          v-show="show"
+          v-if="itemList"
+          :datas="
+            itemList.OpponentsAndTeammates.team.all.all.filter((i, k) => {
+              return k <= 4;
+            })
+          "
         >
-        <span style="float: right; margin-right: 40px">more</span>
-      </h1>
+          <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
+          <data-coloum label="头像" prop="hero.icon" width="20%">
+            <template v-slot="slotProps">
+              <img
+                :src="slotProps.item"
+                alt="英雄头像"
+                style="width: 60px !important; height: 30px; margin-top: 5px"
+              />
+            </template>
+          </data-coloum>
+          <data-coloum
+            label="使用次数"
+            prop="playeds"
+            width="30%"
+          ></data-coloum>
+          <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
+          <data-coloum
+            label="克制指数"
+            prop="antiRate"
+            width="30%"
+          ></data-coloum>
+        </data-list>
+      </div>
+    </transition>
 
-      <data-list
-        v-if="itemList"
-        :datas="itemList.OpponentsAndTeammates.team.all.all.filter((i,k)=>{return k>4})"
-      >
-        <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
-        <data-coloum label="头像" prop="hero.icon" width="20%">
-          <template v-slot="slotProps">
-            <img
-              :src="slotProps.item"
-              alt="英雄头像"
-              style="width: 60px !important; height: 30px; margin-top: 5px"
-            />
-          </template>
-        </data-coloum>
-        <data-coloum label="使用次数" prop="playeds" width="30%"></data-coloum>
-        <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
-        <data-coloum label="克制指数" prop="antiRate" width="30%"></data-coloum>
-      </data-list>
-    </div>
+    <transition name="fade">
+      <div style="position: relative; margin-bottom: 100px" v-show="show">
+        <h1 class="title-hori">
+          <span style="font-size: 14px; font-weight: 500">
+            最适合{{ singelHero ? singelHero.name : "" }}的队友</span
+          >
+          <span style="float: right; margin-right: 40px">more</span>
+        </h1>
+
+        <data-list
+          v-show="show"
+          v-if="itemList"
+          :datas="
+            itemList.OpponentsAndTeammates.team.all.all.filter((i, k) => {
+              return k > 4;
+            })
+          "
+        >
+          <data-coloum label="英雄" prop="hero.name" width="20%"></data-coloum>
+          <data-coloum label="头像" prop="hero.icon" width="20%">
+            <template v-slot="slotProps">
+              <img
+                :src="slotProps.item"
+                alt="英雄头像"
+                style="width: 60px !important; height: 30px; margin-top: 5px"
+              />
+            </template>
+          </data-coloum>
+          <data-coloum
+            label="使用次数"
+            prop="playeds"
+            width="30%"
+          ></data-coloum>
+          <data-coloum label="胜率" prop="winRates" width="30%"></data-coloum>
+          <data-coloum
+            label="克制指数"
+            prop="antiRate"
+            width="30%"
+          ></data-coloum>
+        </data-list>
+      </div>
+    </transition>
   </div>
-
 </template>
 
 <script>
@@ -203,6 +255,7 @@ export default {
      
         fetchDatas(skill,ladder){
                if(!this.singelHero) return
+              this.show = false
             this.skill = skill
             this.ladder = ladder
             this.$http.get(`/rest/heroes/statistics/${this.$parent.heroDatas._id}?skill=${skill}&ladder=${ladder}`,{
@@ -243,6 +296,7 @@ export default {
                 herodata.data.find(i=>{
                     if(i._id===item.hero){
                        item.hero = {icon:i.icon,name:i.name}
+                       item.name = i.name
                     }
                 })
             })
@@ -256,6 +310,7 @@ export default {
             })
 
              this.itemList=  result
+              this.show = true
          
        })
       
@@ -263,8 +318,22 @@ export default {
     },
     
     created(){
-        console.log('created',this.$parent.heroDatas)
+
     this.fetchDatas('all','all')
+    },
+      beforeRouteUpdate (to, from, next) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+    // console.log('route',this.$route)
+    // this.$route.path = window.decodeURI(to.fullPath) 
+    this.show = false
+    console.log('indexbefore',to,from)
+    // console.log( to.fullPath,window.decodeURI(to.fullPath))
+    // to.fullPath = window.decodeURI(to.fullPath)
+    // window.location.href ='/#'+ window.decodeURI(to.fullPath)
+    next()
     },
     mounted(){
         console.log('mounted',this)
@@ -274,12 +343,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-enter-active, .v-leave-active {
-  transition: opacity 2s;
+.fade-enter-active  {
+
+      transition: opacity 1s  , width .5s;
+     width: 100%;
+ 
 }
-.v-enter, .v-leave-to {
-  opacity: 0;
+.fade-enter  /* .fade-leave-active below version 2.1.8 */ {
+
+        width: 0px;
+        opacity: 0;
+    
 }
+
+.fade-leave-active{
+   transition: opacity .5s , width 2s;
+    width: 100%;
+    opacity: 1;
+ 
+}
+
+.fade-leave-to{
+    width: 50%;
+   opacity: 0;
+
+}
+
     .itemList{
         img{
             width: 40px !important;

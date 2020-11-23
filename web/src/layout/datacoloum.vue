@@ -14,10 +14,14 @@
       v-for="(item, index) in propdatas"
       :key="index"
       class="itemList"
-      :to="`/${thing}/detail/${toUrl[index]}`"
+
+
+          :to="`/${thing}/details/${toUrl[index]}/`"
+     
       tag="div"
     >
-      <slot :item="item">{{ isPrimitive(item)?item:'' }}</slot>
+        
+      <slot :item="item">{{ isPrimitive(item)?showType(item):'' }}</slot>
     </router-link>
   </div>
 </template>
@@ -34,12 +38,25 @@ export default {
        'prop':{},
        'label':{},
        'width':{},
-        'thing':{
+       'thing':{
             default:'heros'
-        }
+        },
+       'show':{
+           default:'word',
+           type:String
+       }
    },
     methods:{
-        isPrimitive
+        isPrimitive,
+        showType(str){
+            str = str+''
+            if(this.show==='word') return str
+            if(this.show==='percent') return str+'%'
+            if(this.show==='number')  return  str.replace(/\s*(?=\B(\d{3})*$)/g,',')
+
+          
+           
+        }
     },
    computed:{
        propdatas:function(){
@@ -82,6 +99,7 @@ export default {
        }
     
    }
+ 
    }
   
 

@@ -1,36 +1,72 @@
 <template>
-    <div @click="myclick($event)">
-        <data-list :datas="heroDatas" :style="'color:white'">
-            <data-coloum  label="英雄" prop="name" width="100"/>
-       
-            <data-coloum label="头像"  prop="icon" width="400">
-                   <template v-slot="slotProps">
-                        <img :src="slotProps.item" alt="英雄头像" style="width:60px; height:30px; margin-top:5px" >
-                    </template>
-           </data-coloum>
-            <data-coloum label="胜率"  prop="rate.all.all" width="300"/>
-            <data-coloum label="使用次数"  prop="played.all.all" width="300"/>
-        
-        </data-list>
+  <div class="allhero  ">
+     
+    <div class="search clear">
+      <input type="text" placeholder="搜索英雄" v-model="heroName" />
     </div>
+    <div class="container" v-show="heroDatas.length">
+       <div class="heroBox clear mt-5">
+           <div class="icon"><img src="../../../assets/overviewicon_str.png" alt=""></div>
+
+           <router-link v-for="(item) in heroDatas"  :key="item._id" class="heroCard"  tag="div" :to='toUrl(item.name)'
+      
+           v-show="item.categories[0].name==='力量英雄'&&item.name.match(heroName)">
+               <div class="heroAvatar"><img :src="item.icon" alt=""></div>
+               <div class="hero-top-list-bar">
+                    <img src="../../../assets/overviewicon_str.png" alt="">
+               </div>
+               <div class="hero-list-bar">{{item.name}}</div>
+           </router-link>
+       </div>
+       <div class="heroBox clear mt-5">
+           <div class="icon"><img src="../../../assets/overviewicon_agi.png" alt=""></div>
+
+           <router-link v-for="(item) in heroDatas"  :key="item._id" class="heroCard"  
+                tag="div"  :to='toUrl(item.name)'
+           v-show="item.categories[0].name==='敏捷英雄'&&item.name.match(heroName)">
+               <div class="heroAvatar"><img :src="item.icon" alt=""></div>
+               <div class="hero-top-list-bar">
+                    <img src="../../../assets/overviewicon_agi.png" alt="">
+               </div>
+               <div class="hero-list-bar">{{item.name}}</div>
+           </router-link>
+       </div>
+       <div class="heroBox clear mt-5">
+           <div class="icon"><img src="../../../assets/overviewicon_int.png" alt=""></div>
+
+           <router-link v-for="(item) in heroDatas"  :key="item._id" class="heroCard " 
+              tag="div"  :to='toUrl(item.name)'
+           v-show="item.categories[0].name==='智力英雄'&&item.name.match(heroName)">
+               <div class="heroAvatar"><img :src="item.icon" alt=""></div>
+               <div class="hero-top-list-bar">
+                    <img src="../../../assets/overviewicon_int.png" alt="">
+               </div>
+               <div class="hero-list-bar">{{item.name}}</div>
+           </router-link>
+       </div>
+
+    </div>
+  </div>
 </template>
 
 <script>
-import dataList from '@/layout/datalist.vue'
-import dataColoum from '@/layout/datacoloum.vue'
+
 export default {
     data:()=>{
         return {
-            heroDatas:[]
+            heroDatas:[],
+            heroName:''
         }
     },
     components:{
-        dataList,
-        dataColoum
+    
     },
     methods:{
         myclick(event){
             console.log('hello',event)
+        },
+        toUrl(name){
+            return `/heros/details/${name}/statistics`
         }
     },
     
@@ -49,6 +85,70 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='scss'>
+        .allhero {
+            min-height: 1500px;
+            // background-color: red;   
+            .search{
+               padding: 0 10px;
+                input{
+                    outline-style: none;
+                     float: right;
+                    margin: 20px 0;
+                    width: 300px;
+                    height: 30px;
+                    border: 2px solid grey;
+                    padding-right: 10px;
+                    padding-left: 18px;
+                    border-radius: 20px;
+                }
+            }
+            .container{
+                // background-color: aqua;
+                padding: 0 100px;
+                .heroBox{
+                //    background-color: #fff;
+                  .heroCard{
+                      float: left;
+                      margin: 5px 5px;
+                       font-size: 0px;
+                      width: 95px;
+                      height: 73px;
+                      position: relative;
+                      background-color:red;
+                       .heroAvatar{
+                          height: 53px;
+                                           font-size: 0px;
+                          img{
+            
+                              box-shadow: 0 1px 2px #000;
+                              width: 100%;
+                              height: 100%;
+                          }
+                       }
+                       
+                      .hero-top-list-bar{
+                          position: absolute;
+                          top: 5px;
+                            height: 20px;
+                            img{
+                                float: left;
+                                margin-left: 5px;;
+                                width: 15px;
+                            }
+                      }
+                      .hero-list-bar{
+                          width: 100%;
+                          height: 20px;
+                          line-height: 20px;
+                            font-size: 12px;
+                           position: absolute;
+                           bottom: 0;
+                          background-color:#000;
+                          color: bisque;
+                      }
+                   }
+                }
+            }
+        }
 </style>

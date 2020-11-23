@@ -15,6 +15,7 @@ const routes = [
                 path: '/heros',
                 name: 'heros',
                 component: () => import(/* webpackChunkName: "hero" */ '../views/Data/herosData/index.vue'),
+                redirect:"/heros/allHero",
                 children: [
                     {
                         path: '/heros/allHero',
@@ -63,32 +64,32 @@ const routes = [
 
                     {
                         path: '/items/mostPlayed',
-                        name: 'mostPlayed',
+                        name: 'itemmostPlayed',
                         component: () => import(/* webpackChunkName: "mostplayed" */ '../views/Data/itemsData/mostPlayed.vue')
                     },
                     {
                         path: '/items/rate',
-                        name: 'rate',
+                        name: 'itemrate',
                         component: () => import(/* webpackChunkName: "rate" */ '../views/Data/itemsData/rate.vue')
                     },
                     {
                         path: '/items/kda',
-                        name: 'kda',
+                        name: 'itemkda',
                         component: () => import(/* webpackChunkName: "kda" */ '../views/Data/itemsData/kda.vue')
                     },
 
                     {
                         path: '/items/dmg',
-                        name: 'dmg',
+                        name: 'itemdmg',
                         component: () => import(/* webpackChunkName: "dmg" */ '../views/Data/itemsData/dmg.vue')
                     },
                     {
                         path: '/items/gpm',
-                        name: 'gpm',
+                        name: 'itemgpm',
                         component: () => import(/* webpackChunkName: "dmg" */ '../views/Data/itemsData/gpm.vue')
                     },
                     {
-                        path: '/items/detail/:id',
+                        path: '/items/details/:id',
                         name: 'itemDetail',
                         component: () => import(/* webpackChunkName: "dmg" */ '../views/Data/itemsData/itemsDetail/index.vue')
                     },
@@ -96,13 +97,14 @@ const routes = [
             },
             //
             {
-                path: '/heros/detail/:id',
-                redirect:'/heros/details/:id/statistics',   
+                path: '/heros/details/:id',
+                redirect: { name: 'statistics' },  
                 name: 'detail',
                 component: () => import(/* webpackChunkName: "detailIndex" */ '../views/Data/herosData/details/index.vue'),
                 children:[
                     {
                         path: '/heros/details/:id/statistics',
+                        name:'statistics',
                     
                         component: () => import(/* webpackChunkName: "heroitems" */ '../views/Data/herosData/details/statistics.vue')
                     },
@@ -150,9 +152,9 @@ const routes = [
 
 const router = new VueRouter({
     routes,
-    scrollBehavior:function(){
-        return {x:0,y:0}
-    }
+    // scrollBehavior:function(){
+    //     return {x:0,y:0}
+    // }
 })
 
 export default router

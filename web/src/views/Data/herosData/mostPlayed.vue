@@ -16,8 +16,8 @@
           />
         </template>
       </data-coloum>
-      <data-coloum label="使用次数" :prop='`played.${skill}.${ladder}`' width="300" />
-      <data-coloum label="胜率" :prop='`rate.${skill}.${ladder}`' width="300" />
+      <data-coloum label="使用次数" :prop='`played.${skill}.${ladder}`' width="300" show='number'/>
+      <data-coloum label="胜率" :prop='`rate.${skill}.${ladder}`' width="300" show="percent" />
     </data-list>
   </div>
 </template>
