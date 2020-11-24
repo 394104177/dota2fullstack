@@ -3,6 +3,7 @@ import App from './App.vue'
 import './reset.css'
 import'./style.scss'
 import 'animate.css'
+import './assets/font/iconfont.css'
 import router from './router'
 import axios from "axios"
 // import echarts from 'echarts'

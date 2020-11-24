@@ -4,33 +4,33 @@
 
 // // These helpers produce better VM code in JS engines due to their
 // // explicitness and function inlining.
-export function isUndef (v) {
-  return v === undefined || v === null
+export function isUndef(v) {
+    return v === undefined || v === null
 }
 
-export function isDef (v) {
-  return v !== undefined && v !== null
+export function isDef(v) {
+    return v !== undefined && v !== null
 }
 
-export function isTrue (v) {
-  return v === true
+export function isTrue(v) {
+    return v === true
 }
 
-export function isFalse (v) {
-  return v === false
+export function isFalse(v) {
+    return v === false
 }
 
 // /**
 //  * Check if value is primitive.
 //  */
-export function isPrimitive (value){
-  return (
-    typeof value === 'string' ||
-    typeof value === 'number' ||
-    // $flow-disable-line
-    typeof value === 'symbol' ||
-    typeof value === 'boolean'
-  )
+export function isPrimitive(value) {
+    return (
+        typeof value === 'string' ||
+        typeof value === 'number' ||
+        // $flow-disable-line
+        typeof value === 'symbol' ||
+        typeof value === 'boolean'
+    )
 }
 
 // /**
@@ -38,38 +38,49 @@ export function isPrimitive (value){
 //  * Objects from primitive values when we know the value
 //  * is a JSON-compliant type.
 //  */
-export function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
+export function isObject(obj) {
+    return obj !== null && typeof obj === 'object'
 }
-
+export function debounce(fn, delay, immediately) {
+    let timer = null
+  
+    return function (...arg) {
+        timer && clearTimeout(timer)
+        if (immediately) {
+            const callnow = !timer
+            timer = setTimeout(() => {         
+                timer = null
+            }, delay)
+           callnow && fn.apply(this,arg)
+        }else{
+            timer = setTimeout(() => {
+                fn.apply(this.arg)
+            }, delay)
+        } 
+    }
+}
 // /**
 //  * Get the raw type string of a value, e.g., [object Object].
 //  */
-// const _toString = Object.prototype.toString
+const _toString = Object.prototype.toString
 
-// export function toRawType (value: any): string {
-//   return _toString.call(value).slice(8, -1)
-// }
+export function toRawType (value){
+  return _toString.call(value).slice(8, -1)
+}
 
-// /**
-//  * Strict object type check. Only returns true
-//  * for plain JavaScript objects.
-//  */
-// export function isPlainObject (obj: any): boolean {
-//   return _toString.call(obj) === '[object Object]'
-// }
+export function isPlainObject (obj){
+  return _toString.call(obj) === '[object Object]'
+}
 
-// export function isRegExp (v: any): boolean {
-//   return _toString.call(v) === '[object RegExp]'
-// }
+export function isRegExp (v) {
+  return _toString.call(v) === '[object RegExp]'
+}
 
-// /**
-//  * Check if val is a valid array index.
-//  */
-// export function isValidArrayIndex (val: any): boolean {
-//   const n = parseFloat(String(val))
-//   return n >= 0 && Math.floor(n) === n && isFinite(val)
-// }
+
+export function isValidArrayIndex (val){
+  const n = parseFloat(String(val))
+  return n >= 0 && Math.floor(n) === n && isFinite(val)
+}
 
 // export function isPromise (val: any): boolean {
 //   return (

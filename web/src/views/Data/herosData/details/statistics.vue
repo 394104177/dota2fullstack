@@ -16,7 +16,7 @@
     </transition>
 
     <transition name="fade">
-      <data-list v-show="show" v-if="itemList" :datas="itemList.itemData">
+      <data-list v-show="show" v-if="itemList" :datas="itemList.itemData" >
         <data-coloum
           thing="items"
           label="装备"
@@ -49,8 +49,8 @@
     </transition>
 
     <transition name="fade">
-      <div style="position: relative"  v-show="show">
-        <h1 class="title-hori">
+      <div style="position: relative"  v-show="show"  >
+        <h1 class="title-hori" @click="jumpto('opponents')">
           <span style="font-size: 14px; font-weight: 500">
             最克制{{ singelHero ? singelHero.name : "" }}的对手</span
           >
@@ -92,8 +92,8 @@
     </transition>
 
     <transition name="fade">
-      <div style="position: relative"  v-show="show">
-        <h1 class="title-hori">
+      <div style="position: relative"  v-show="show" >
+        <h1 class="title-hori" @click="jumpto('opponents')">
           <span style="font-size: 14px; font-weight: 500">
             {{ singelHero ? singelHero.name : "" }}最克制的对手</span
           >
@@ -135,8 +135,8 @@
     </transition>
 
     <transition name="fade">
-      <div style="position: relative"  v-show="show">
-        <h1 class="title-hori">
+      <div style="position: relative"  v-show="show"  >
+        <h1 class="title-hori" @click="jumpto('teammates')">
           <span style="font-size: 14px; font-weight: 500">
             最不适合{{ singelHero ? singelHero.name : "" }}的队友</span
           >
@@ -178,8 +178,8 @@
     </transition>
 
     <transition name="fade">
-      <div style="position: relative; margin-bottom: 100px" v-show="show">
-        <h1 class="title-hori">
+      <div style="position: relative; margin-bottom: 100px" v-show="show" >
+        <h1 class="title-hori" @click="jumpto('teammates')">
           <span style="font-size: 14px; font-weight: 500">
             最适合{{ singelHero ? singelHero.name : "" }}的队友</span
           >
@@ -252,7 +252,9 @@ export default {
     },  
    
     methods:{
-     
+        jumpto(name){
+            this.$router.push(`/heros/details/${this.$route.params.id}/${name}`)
+        },
         fetchDatas(skill,ladder){
                if(!this.singelHero) return
               this.show = false
@@ -389,19 +391,37 @@ export default {
     padding-left: 10px;
     margin-bottom: 15px;
     margin-top: 25px;
-    background: linear-gradient(toleft, rgba(20, 20, 20, 1) 0%, rgba(10, 10, 10, 0)  70% );
+    background:  linear-gradient(to right, rgb(20, 20, 20) 0%, rgba(10, 10, 10, 0)  80% );
     text-align: left;
         &:before {
             margin-right: 5px;
             display: inline-block;
-            font: normal normal normal 14px/1 FontAwesome;
+            font: normal normal normal 14px/1 'iconfont';
             font-size: inherit;
             text-rendering: auto;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             transform: translate(0, 0);
-            content: "\f0c9";
+            content: "\e62f";
             font-size: 14px;
+        }
+        span:nth-child(2){
+            color: #ccc;
+            &:before{
+                margin-right: 5px;
+                display: inline-block;
+                content: "\e62c";
+                font: normal normal bolder 14px 'iconfont';
+                transition: all .2s;
+            
+            }
+             &:hover{
+                color: white;
+               &:before{
+                   transform: rotate(90deg);
+               }
+            }
+           
         }
     }
 </style>
