@@ -1,10 +1,14 @@
 <template>
-    <div style="width:740px;padding:2px 15px;overflow:hidden;border-top:0px;position:relative">
+    <div style="width:740px;padding:2px 15px;overflow:hidden;border-top:0px;position:relative;">
+       
         <data-format
       style="height: 200px"
       @changeFormat="fetchDatas"
     ></data-format>
-    <data-list :datas="heroDatas">
+    <div >
+    <div v-dht-loading.fullscreen="!heroDatas?{fontSize :12}:false"> </div>
+
+    <data-list :datas="heroDatas" >
       <data-coloum label="英雄" prop="name" width="20%"></data-coloum>
       <data-coloum label="头像" prop="icon" width="20%">
         <template v-slot="slotProps">
@@ -19,6 +23,7 @@
       <data-coloum label="胜率" prop="winRates" width="20%"></data-coloum>
       <data-coloum label="使用次数" prop="playeds" width="20%"></data-coloum>
     </data-list>
+        </div>
   </div>
 </template>
 

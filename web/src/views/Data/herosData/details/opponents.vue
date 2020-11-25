@@ -4,6 +4,7 @@
       style="height: 200px"
       @changeFormat="fetchDatas"
     ></data-format>
+       <div v-dht-loading.fullscreen="!heroDatas?{fontSize :12}:false"></div>
         <data-list :datas="heroDatas">
             <data-coloum label="英雄" prop="name" width="20%"></data-coloum>
             <data-coloum label="英雄" prop="icon" width="20%">

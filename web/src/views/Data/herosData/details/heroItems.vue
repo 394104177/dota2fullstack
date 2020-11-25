@@ -11,6 +11,7 @@
     <data-format style="height: 200px" @changeFormat="fetchDatas"></data-format>
     <transition name="fade">
       <div v-show="show">
+           <div v-dht-loading.fullscreen="!show?{background:'white',fontSize :12}:false"></div>
         <data-list :datas="itemList">
           <data-coloum
             thing="items"

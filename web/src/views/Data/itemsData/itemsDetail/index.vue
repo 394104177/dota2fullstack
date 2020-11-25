@@ -35,7 +35,7 @@
           </data-list>
         </div>
 
-        <div class="accordion text-white" v-if="itemDatas">
+        <div class="accordion text-white" v-if="singleItem">
           <div class="skill">
             <div
               style="
@@ -47,19 +47,23 @@
                 line-height: 42px;
                 font-size: 16px;
                 font-weight: 500;
+                
               "
+              class="text-left"
             >
               <img
-                :src="itemDatas.icon"
+                :src="singleItem.icon"
                 style="
                   display: inline-block;
                   vertical-align: middle;
                   margin-right: 15px !important;
                   padding: 2px;
-                  width: 45px;
+                  width:80px;
+                  height:53px
+                  
                 "
               />
-              {{ itemDatas.name }}
+              {{ singleItem.name }}
             </div>
             <div
               style="
@@ -68,47 +72,12 @@
                 padding: 10px;
                 line-height: 20px;
               "
-              v-html="itemDatas.description"
+              v-html="singleItem.description"
               class="text-left"
             ></div>
           </div>
         </div>
   
-
-
-
-        <div class="hero-right-bar">
-          <div
-            class="new-box"
-            style="
-              width: 336px;
-              float: left;
-              margin-left: 20px;
-              margin-top: 15px;
-            "
-          >
-            <div class="iconTooltip">
-              <div class="items_top">
-                <div class="iconTooltip_img">
-                  <img
-                    class="img-shadow"
-                    src="http://cdn.dota2.com/apps/dota2/images/items/chainmail_lg.png"
-                  />
-                </div>
-                <div class="iconTooltip_tit">
-                  <div class="items_tit component">锁子甲 <br /></div>
-                  <div class="price">550</div>
-                </div>
-                <div class="items_txt"  v-if="itemDatas">
-                    
-                </div>
-              </div>
-              <br />
-              <div style="vertical-align: middle"></div>
-            
-            </div>
-          </div>
-        </div>
       </main>
     </div>
   </div>
@@ -122,6 +91,7 @@ export default {
     data:()=>{
         return {
             itemDatas:[],
+            singleItem:null,
              skill:'all',
             ladder:'all'
         }
@@ -156,6 +126,7 @@ export default {
                 item.icon = find.icon
             })
            this.itemDatas  = singleItem.played[this.skill][this.ladder]
+           this.singleItem = singleItem
        })
         }
     },
@@ -169,8 +140,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .accordion{
-
+    width:360px ;
+    box-sizing: border-box;
+   
+    .skill{
+         padding: 5px 20px;
+           background-image:linear-gradient(to bottom ,rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+    }
 }
 </style>

@@ -12,7 +12,7 @@
           </ul>
       </header>
       <main  style="min-height:1000px; width:1100px; margin: 0 auto;" >
-          <keep-alive> <router-view></router-view></keep-alive>
+           <router-view></router-view>
         
       </main>
     </div>

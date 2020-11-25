@@ -6,8 +6,10 @@ import 'animate.css'
 import './assets/font/iconfont.css'
 import router from './router'
 import axios from "axios"
+import maskDirective from '@/components/mask/mask.js'
 // import echarts from 'echarts'
 // import {Bus} from '@/utils/eventBus'
+Vue.use(maskDirective)
 Vue.config.productionTip = false
 Vue.prototype.$http = axios.create({
     baseURL:process.env.VUE_APP_api || '/admin/api'

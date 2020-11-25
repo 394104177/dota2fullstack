@@ -8,7 +8,7 @@
                 <li><router-link to="/" class="text-center"><span>首页</span><span class="nav_link">HOME</span></router-link></li>
                 <li><router-link to="/news" class="text-center"><span>资讯</span><span class="nav_link">NEWS</span></router-link></li>
                 <li>
-                    <router-link to="/data/hero" class="text-center">
+                    <router-link to="/heros" class="text-center">
                         <span>资料</span>
                         <span class="nav_link">DATA</span>
                     </router-link>

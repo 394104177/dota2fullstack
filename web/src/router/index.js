@@ -152,9 +152,9 @@ const routes = [
 
 const router = new VueRouter({
     routes,
-    // scrollBehavior:function(){
-    //     return {x:0,y:0}
-    // }
+    scrollBehavior:function(){
+        return {x:0,y:0}
+    }
 })
 
 export default router

@@ -184,9 +184,11 @@ html {
                     }
                     &:hover .pop{
                         display: block;
+                        width: 100%;
                     }
                     .pop{
-                        width: 100%;
+                        transition: width 5s;
+                        width: 0%;
                         display: none;
                         position: absolute;
                         top: 84px;

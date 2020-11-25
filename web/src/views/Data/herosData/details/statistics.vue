@@ -8,6 +8,7 @@
       position: relative;
     "
   >
+    <div v-dht-loading.fullscreen="!show?{background:'white',fontSize :12}:false"></div>
     <transition name="fade">
       <div v-if="show">
         <dataSkill :datas="itemList ? itemList.addSkills.all.all[0] : null">
