@@ -1,6 +1,7 @@
 const inflection = require('inflection')
 const mongoose = require('mongoose')
-
+const axios = require('axios')
+const cheerio = require('cheerio')
 module.exports = app => {
   const express = require('express')
   const jwt = require('jsonwebtoken')
@@ -109,7 +110,39 @@ module.exports = app => {
     } else if (Model.modelName === 'item') {
       const skill = req.query.skill || 'all'
       const ladder = req.query.ladder || 'all'
-      const model = await Model.find({}, `kda.${skill}.${ladder} dmg.${skill}.${ladder} gpm.${skill}.${ladder} xpm.${skill}.${ladder} rate.${skill}.${ladder} played.${skill}.${ladder} name icon description`)
+      const model = await Model.find({ }, `kda.${skill}.${ladder} dmg.${skill}.${ladder} gpm.${skill}.${ladder} xpm.${skill}.${ladder} rate.${skill}.${ladder} played.${skill}.${ladder} name icon description`)
+      res.send(model)
+      return
+    } else if (Model.modelName === 'Article') {
+      const page = req.query.page || 1
+      const limit = req.query.limit || 8
+      console.log(page, limit)
+      queryOption.limit = limit
+      queryOption.skip = (page - 1) * limit
+      queryOption.sort = '-addTime'
+      const kind = req.query.kind
+      let kindId = ''
+      switch (kind) {
+        case 'comNews':
+          var models = await Model.find({ }).setOptions(queryOption)
+          res.send(models)
+          return
+
+        case 'gameNews':
+          kindId = '5f29ce7dc0629212f8b0e769'
+          break
+        case 'competition':
+          kindId = '5fc7994b40b8e81b00e9f322'
+          break
+        case 'gamePost':
+          kindId = '5fc7996040b8e81b00e9f323'
+          break
+
+        default:break
+      }
+
+      const model = await Model.find({ categories: [kindId] }).setOptions(queryOption)
+
       res.send(model)
       return
     }
@@ -172,7 +205,25 @@ module.exports = app => {
     const token = jwt.sign({ id: user._id }, app.get('secret'))
     res.send({ token })
   })
+  // 首页直播
+  app.get('/admin/api/live', async (req, res) => {
+    axios.get('http://dotamax.com/live/').then(result => {
+      const $ = cheerio.load(result.data)
+      $('.live-box a').attr('href', function () {
+        console.log(this, '+++++++++++++++++++++++++')
+        return 'http://dotamax.com' + this.attribs.href
+      })
+      var live = $('.main-container').html()
 
+      res.send(live)
+    })
+  })
+  // 文章列表
+  app.get('/articles', async (req, res) => {
+    const heromModel = require('../../models/Article.js')
+    const articles = heromModel.find()
+    res.send(articles)
+  })
   // 错误处理函数
   app.use(async (err, req, res, next) => {
     console.log(err)

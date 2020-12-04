@@ -194,13 +194,14 @@ html {
                         top: 84px;
                         z-index: 1;
                         box-sizing: border-box;
+                        background-image:linear-gradient(to bottom, black, 70%,rgba(255, 255, 255, 0));
         
                         a{
                             width: 100%;
                             text-align: center;
-                            background-color:  map-get($colors,"grey");
+                        
                             box-sizing: border-box;
-                            padding: 20px 30px;
+                            padding: 20px 20px;
                             display: block;
                             &:hover{
                                 color: map-get($colors, 'lightblue');

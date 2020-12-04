@@ -9,13 +9,20 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+        redirect: "/firstPage",
         children: [
+            {
+                path: '/firstPage',
+                name: 'firstPage',
+                component: () => import(/* webpackChunkName: "hero" */ '../views/firstPage/index.vue'),
+            },
+
             //hero
             {
                 path: '/heros',
                 name: 'heros',
                 component: () => import(/* webpackChunkName: "hero" */ '../views/Data/herosData/index.vue'),
-                redirect:"/heros/allHero",
+                redirect: "/heros/allHero",
                 children: [
                     {
                         path: '/heros/allHero',
@@ -98,39 +105,39 @@ const routes = [
             //
             {
                 path: '/heros/details/:id',
-                redirect: { name: 'statistics' },  
+                redirect: { name: 'statistics' },
                 name: 'detail',
                 component: () => import(/* webpackChunkName: "detailIndex" */ '../views/Data/herosData/details/index.vue'),
-                children:[
+                children: [
                     {
                         path: '/heros/details/:id/statistics',
-                        name:'statistics',
-                    
+                        name: 'statistics',
+
                         component: () => import(/* webpackChunkName: "heroitems" */ '../views/Data/herosData/details/statistics.vue')
                     },
                     {
                         path: '/heros/details/:id/heroitems',
-                    
+
                         component: () => import(/* webpackChunkName: "heroitems" */ '../views/Data/herosData/details/heroItems.vue')
                     },
                     {
                         path: '/heros/details/:id/skills',
-                    
+
                         component: () => import(/* webpackChunkName: "skills" */ '../views/Data/herosData/details/skills.vue')
                     },
                     {
                         path: '/heros/details/:id/opponents',
-                    
+
                         component: () => import(/* webpackChunkName: "opponents" */ '../views/Data/herosData/details/opponents.vue')
                     },
                     {
                         path: '/heros/details/:id/teammates',
-                    
+
                         component: () => import(/* webpackChunkName: "teammates" */ '../views/Data/herosData/details/teammates.vue')
                     },
                     {
                         path: '/heros/details/:id/trends',
-                    
+
                         component: () => import(/* webpackChunkName: "teammates" */ '../views/Data/herosData/details/trends.vue')
                     },
                 ]
@@ -145,15 +152,39 @@ const routes = [
     {
         path: '/news',
         name: 'News',
-        component: () => import(/* webpackChunkName: "about" */ '../views/News.vue')
+        redirect:'/news/comNews',
+        component: () => import(/* webpackChunkName: "about" */ '../views/news/index.vue'),
+        children: [
+            {
+                path: '/news/:newType',
+                name: 'gameNews',
+                component: () => import(/* webpackChunkName: "heroitems" */ '../views/news/newsList.vue')
+            },
+            {
+                path: '/news/:newType',
+                name: 'competition',
+                component: () => import(/* webpackChunkName: "heroitems" */ '../views/news/newsList.vue')
+            },
+            {
+                path: '/news/:newType',
+                name: 'gamePost',
+                component: () => import(/* webpackChunkName: "heroitems" */ '../views/news/newsList.vue')
+            },
+            {
+                path: '/news/:newType',
+                name: 'raider',
+                component: () => import(/* webpackChunkName: "heroitems" */ '../views/news/newsList.vue')
+            },
+       
+        ]
     },
 
 ]
 
 const router = new VueRouter({
     routes,
-    scrollBehavior:function(){
-        return {x:0,y:0}
+    scrollBehavior: function () {
+        return { x: 0, y: 0 }
     }
 })
 

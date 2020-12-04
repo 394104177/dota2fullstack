@@ -8,8 +8,18 @@ const schema = new mongoose.Schema({
   title: {
     type: String
   },
+  subTitle: {
+    type: String
+  },
+  logo: {
+    type: String
+  },
   body: {
     type: String
+  },
+  addTime: {
+    type: Date,
+    default: new Date()
   }
 })
 

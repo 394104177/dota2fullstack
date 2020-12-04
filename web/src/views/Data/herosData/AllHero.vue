@@ -113,7 +113,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
    @keyframes boxAnimation1 {
                                from {
                                  box-shadow:5px 0px 70px 6px     rgba($color: rgb(238, 31, 4), $alpha: .8);

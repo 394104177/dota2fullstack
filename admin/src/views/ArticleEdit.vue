@@ -1,36 +1,49 @@
 <template>
   <div class="class">
-      <h1>{{id?"编辑文章":"创建文章"}}</h1>
-      <el-form label-width="120px" @submit.native.prevent="save">
-           <el-form-item label="所属分类">
-              <el-select v-model="model.categories" multiple>
-                  <el-option v-for="item in categoriesOption"  
-                  :key="item._id" 
-                  :value="item._id" 
-                  :label="item.name"></el-option>
-              </el-select>
-          </el-form-item>
-          <el-form-item label="标题">
-              <el-input v-model="model.title"></el-input>
-          </el-form-item>
-          <el-form-item label="内容">
-              <vue-editor v-model="model.body" useCustomImageHandler @image-added="handleImageAdded"></vue-editor>
-          </el-form-item>
-          <el-form-item >
-             <el-button type="primary" native-type="submit">保存</el-button>
-          </el-form-item>
-      </el-form>
+    <h1>{{ id ? "编辑文章" : "创建文章" }}</h1>
+    <el-form label-width="120px" @submit.native.prevent="save">
+      <el-form-item label="所属分类">
+        <el-select v-model="model.categories" multiple>
+          <el-option
+            v-for="item in categoriesOption"
+            :key="item._id"
+            :value="item._id"
+            :label="item.name"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="标题">
+        <el-input v-model="model.title"></el-input>
+      </el-form-item>
+
+      <el-form-item label="内容">
+       
+       <div id="test" style="display:none"></div>
+        <vue-editor
+          v-model="model.body"
+          useCustomImageHandler
+          @image-added="handleImageAdded"
+          ref="editor"
+        ></vue-editor>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" native-type="submit">保存</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script>
 import {VueEditor} from "vue2-editor"
+
 export default {
     components:{
         VueEditor
     },
     data(){
         return {
+    
             model:{
               
             },
@@ -41,6 +54,8 @@ export default {
         id:{}
     },
     methods:{
+        
+      
        async save(){
            if(this.id){
                 await this.$http.put(`rest/articles/${this.id}`,this.model)
@@ -76,6 +91,8 @@ export default {
         this.id && this.fetch()
     }
 }
+
+
 </script>
 
 <style>
