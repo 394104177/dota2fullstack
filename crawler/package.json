@@ -1,17 +1,22 @@
 {
-  "name": "crawler",
+  "name": "clawer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon index.js",
+    "trick": "chrome https://www.baidu.com"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "axios-retry": "^3.1.8",
     "cheerio": "^1.0.0-rc.3",
-    "form-data": "^3.0.0"
+    "express": "^4.17.1",
+    "form-data": "^3.0.0",
+    "object-sizeof": "^1.6.1"
   }
 }
