@@ -46,9 +46,7 @@ export default {
             return this.$parent?this.$parent.singleHero:null
         }
     },
-    mounted(){
-        console.log('mounted',this)
-    },
+  
     watch:{
     'singelHero':function(){
         this.fetchDatas('all','all')

@@ -1,14 +1,26 @@
 <template>
-    <div style="width:740px;padding:2px 15px;overflow:hidden;border-top:0px;position:relative">
-        <data-format  
+  <div style="width:740px;padding:2px 15px;overflow:hidden;border-top:0px;position:relative">
+    <div style="position:relative">
+      <data-format
         style="height: 200px"
-        @changeFormat="fetchDatas"></data-format>
-        <div  style="position:absolute;top:200px">
-            <add-skill  v-for="item in addSkills" :datas='item' :key="item._id"></add-skill>
+        @changeFormat="fetchDatas"
+      ></data-format>
+      <div
+        v-show="show"
+        style="position:absolute;top:200px"
+      >
+        <div v-dht-loading.fullscreen="!show?{background:'white',fontSize :12}:false"></div>
+        <div>
+          <add-skill
+            v-for="item in addSkills"
+            :datas='item'
+            :key="item._id"
+          ></add-skill>
         </div>
-        
+      </div>
     </div>
-   
+  </div>
+
 </template>
 
 <script>
@@ -18,7 +30,8 @@ export default {
    
     data:()=>{
         return {
-            addSkills:null
+            addSkills:null,
+            show:false
         }
     },
     computed:{
@@ -56,6 +69,7 @@ export default {
            let datas = res.data.addSkills[skill][ladder]
            
            this.addSkills= datas
+            this.show = true
         })
        }
    },
@@ -68,5 +82,4 @@ export default {
 </script>
 
 <style>
-
 </style>

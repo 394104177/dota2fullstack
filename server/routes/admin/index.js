@@ -44,11 +44,11 @@ module.exports = app => {
     const ladder = req.query.ladder || 'all'
     const heromModel = require('../../models/Hero.js')
     const itemModel = require('../../models/Item.js')
+
     let herodatas = await heromModel.find({ _id: req.params.id }, `played.${skill}.${ladder} OpponentsAndTeammates.opp.${skill}.${ladder} OpponentsAndTeammates.team.${skill}.${ladder} addSkills.${skill}.${ladder}`)
-
-    herodatas = herodatas.find(item => { return mongoose.Types.ObjectId(item._id).toString() === req.params.id })
-
-    const datas = await itemModel.find({}, `played.${skill}.${ladder} _id icon name`)
+    herodatas = herodatas[0]
+    const allHero = await heromModel.find({ }, 'icon name')
+    const datas = await itemModel.find({ }, `played.${skill}.${ladder} _id icon name`)
 
     let result = datas.map(item => {
       for (let i = 0; i < item.played[skill][ladder].length; i++) {
@@ -66,9 +66,46 @@ module.exports = app => {
       })
       .slice(0, 10)
 
+    console.log(herodatas._doc)
     const final = Object.assign({}, herodatas._doc)
     final.itemData = result
 
+    console.time('a')
+    final.OpponentsAndTeammates.opp.all.all.sort((a, b) => {
+      return parseFloat(a.antiRate) - parseFloat(b.antiRate)
+    })
+    final.OpponentsAndTeammates.team.all.all.sort((a, b) => {
+      return parseFloat(a.antiRate) - parseFloat(b.antiRate)
+    })
+    final.OpponentsAndTeammates.opp.all.all = final.OpponentsAndTeammates.opp.all.all.filter((item, index) => {
+      if (index <= 4 || index >= final.OpponentsAndTeammates.opp.all.all.length - 5) {
+        return true
+      }
+    })
+    final.OpponentsAndTeammates.team.all.all = final.OpponentsAndTeammates.team.all.all.filter((item, index) => {
+      if (index <= 4 || index >= final.OpponentsAndTeammates.team.all.all.length - 5) {
+        return true
+      }
+    })
+    final.OpponentsAndTeammates.team.all.all.find(item => {
+      allHero.find(i => {
+        if (i._id.toString() === item.hero.toString()) {
+          item._doc.hero = { icon: i.icon, name: i.name }
+          item._doc.name = i.name
+        }
+      })
+    })
+    final.OpponentsAndTeammates.opp.all.all.find(item => {
+      allHero.find(i => {
+        if (i._id.toString() === item.hero.toString()) {
+          item._doc.hero = { icon: i.icon, name: i.name }
+          item._docname = i.name
+          //   console.log(Object.getOwnPropertyDescriptors(item))
+          console.log(item)
+        }
+      })
+    })
+    console.timeEnd('a')
     res.send(final)
   })
 
@@ -114,6 +151,11 @@ module.exports = app => {
       res.send(model)
       return
     } else if (Model.modelName === 'Article') {
+      if (!req.query.kind) {
+        console.log('enter')
+
+        return res.send(await Model.find({ }))
+      }
       const page = req.query.page || 1
       const limit = req.query.limit || 8
       console.log(page, limit)
@@ -219,11 +261,7 @@ module.exports = app => {
     })
   })
   // 文章列表
-  app.get('/articles', async (req, res) => {
-    const heromModel = require('../../models/Article.js')
-    const articles = heromModel.find()
-    res.send(articles)
-  })
+
   // 错误处理函数
   app.use(async (err, req, res, next) => {
     console.log(err)

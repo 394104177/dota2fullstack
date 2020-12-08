@@ -66,6 +66,7 @@ const routes = [
             {
                 path: '/items',
                 name: 'items',
+                redirect: "/items/mostPlayed",
                 component: () => import(/* webpackChunkName: "item" */ '../views/Data/itemsData/index.vue'),
                 children: [
 
@@ -174,6 +175,11 @@ const routes = [
                 path: '/news/:newType',
                 name: 'raider',
                 component: () => import(/* webpackChunkName: "heroitems" */ '../views/news/newsList.vue')
+            },
+            {
+                path: '/news/details/:page',
+                name: 'details',
+                component: () => import(/* webpackChunkName: "heroitems" */ '../views/news/newsdetail.vue')
             },
        
         ]

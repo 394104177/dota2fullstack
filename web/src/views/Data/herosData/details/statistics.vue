@@ -9,14 +9,14 @@
     "
   >
     <div v-dht-loading.fullscreen="!show?{background:'white',fontSize :12}:false"></div>
-    <transition name="fade">
+  
       <div v-if="show">
         <dataSkill :datas="itemList ? itemList.addSkills.all.all[0] : null">
         </dataSkill>
       </div>
-    </transition>
 
-    <transition name="fade">
+
+ 
       <data-list v-show="show" v-if="itemList" :datas="itemList.itemData" >
         <data-coloum
           thing="items"
@@ -47,9 +47,9 @@
           width="30%"
         ></data-coloum>
       </data-list>
-    </transition>
 
-    <transition name="fade">
+
+ 
       <div style="position: relative"  v-show="show"  >
         <h1 class="title-hori" @click="jumpto('opponents')">
           <span style="font-size: 14px; font-weight: 500">
@@ -90,9 +90,9 @@
           ></data-coloum>
         </data-list>
       </div>
-    </transition>
+ 
 
-    <transition name="fade">
+  
       <div style="position: relative"  v-show="show" >
         <h1 class="title-hori" @click="jumpto('opponents')">
           <span style="font-size: 14px; font-weight: 500">
@@ -133,9 +133,9 @@
           ></data-coloum>
         </data-list>
       </div>
-    </transition>
+  
 
-    <transition name="fade">
+
       <div style="position: relative"  v-show="show"  >
         <h1 class="title-hori" @click="jumpto('teammates')">
           <span style="font-size: 14px; font-weight: 500">
@@ -176,9 +176,9 @@
           ></data-coloum>
         </data-list>
       </div>
-    </transition>
+  
 
-    <transition name="fade">
+
       <div style="position: relative; margin-bottom: 100px" v-show="show" >
         <h1 class="title-hori" @click="jumpto('teammates')">
           <span style="font-size: 14px; font-weight: 500">
@@ -219,7 +219,7 @@
           ></data-coloum>
         </data-list>
       </div>
-    </transition>
+
   </div>
 </template>
 
@@ -257,6 +257,7 @@ export default {
             this.$router.push(`/heros/details/${this.$route.params.id}/${name}`)
         },
         fetchDatas(skill,ladder){
+            console.time('a')
                if(!this.singelHero) return
               this.show = false
             this.skill = skill
@@ -268,53 +269,11 @@ export default {
            }
            
        }).then(async res=>{
+            console.timeEnd('a')
              const result = res.data
-            result.OpponentsAndTeammates.opp.all.all.sort((a,b)=>{
-              return  parseFloat(a.antiRate)- parseFloat(b.antiRate) 
-            })
-            result.OpponentsAndTeammates.team.all.all.sort((a,b)=>{
-              return  parseFloat(a.antiRate)- parseFloat(b.antiRate) 
-            })
-          result.OpponentsAndTeammates.opp.all.all= result.OpponentsAndTeammates.opp.all.all.filter((item,index)=>{
-              if(index<=4||index>=result.OpponentsAndTeammates.opp.all.all.length-5){
-                  return true
-              }
-          })
-          result.OpponentsAndTeammates.team.all.all= result.OpponentsAndTeammates.team.all.all.filter((item,index)=>{
-              if(index<=4||index>=result.OpponentsAndTeammates.team.all.all.length-5){
-                  return true
-              }
-          })
-
-
-         let herodata = await this.$http.get(`/rest/heroes/`,{
-          
-           headers:{
-               authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMmFhMDZhMmQxODliMzY3NGRiYmI5OCIsImlhdCI6MTU5Njc1MzUwNH0.cVGuBl5a_7i_ORPxOMWkbYLbZrAl6qdWacO_N92PUBQ"
-           }
-           
-         })
-
-            result.OpponentsAndTeammates.team.all.all.find(item=>{
-                herodata.data.find(i=>{
-                    if(i._id===item.hero){
-                       item.hero = {icon:i.icon,name:i.name}
-                       item.name = i.name
-                    }
-                })
-            })
-            result.OpponentsAndTeammates.opp.all.all.find(item=>{
-                herodata.data.find(i=>{
-                    if(i._id===item.hero){
-                       item.hero = {icon:i.icon,name:i.name}
-                       item.name = i.name
-                    }
-                })
-            })
-
              this.itemList=  result
               this.show = true
-         
+              
        })
       
         }
@@ -324,53 +283,14 @@ export default {
 
     this.fetchDatas('all','all')
     },
-      beforeRouteUpdate (to, from, next) {
-    // 在当前路由改变，但是该组件被复用时调用
-    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    // 可以访问组件实例 `this`
-    // console.log('route',this.$route)
-    // this.$route.path = window.decodeURI(to.fullPath) 
-    this.show = false
-    console.log('indexbefore',to,from)
-    // console.log( to.fullPath,window.decodeURI(to.fullPath))
-    // to.fullPath = window.decodeURI(to.fullPath)
-    // window.location.href ='/#'+ window.decodeURI(to.fullPath)
-    next()
-    },
-    mounted(){
-        console.log('mounted',this)
-    }
+  
+ 
 
 }
 </script>
 
 <style lang="scss" scoped>
-.fade-enter-active  {
 
-      transition: opacity 1s  , width .5s;
-     width: 100%;
- 
-}
-.fade-enter  /* .fade-leave-active below version 2.1.8 */ {
-
-        width: 0px;
-        opacity: 0;
-    
-}
-
-.fade-leave-active{
-   transition: opacity .5s , width 2s;
-    width: 100%;
-    opacity: 1;
- 
-}
-
-.fade-leave-to{
-    width: 50%;
-   opacity: 0;
-
-}
 
     .itemList{
         img{

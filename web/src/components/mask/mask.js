@@ -51,7 +51,7 @@ const maskDirective = () => {
       componentUpdated() {
         console.log("渲染完成了");
       },
-      //只调用一次，指令与元素解绑时调用
+      
      
     });
     const toggleLoading = function(el, binding) {

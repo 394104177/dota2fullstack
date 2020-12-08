@@ -1,48 +1,54 @@
 <template>
-  <div
-    style="
+  <div style="
       width: 740px;
       padding: 2px 15px;
       overflow: hidden;
       border-top: 0px;
       position: relative;
-    "
-  >
-    <data-format style="height: 200px" @changeFormat="fetchDatas"></data-format>
-    <transition name="fade">
-      <div v-show="show">
-           <div v-dht-loading.fullscreen="!show?{background:'white',fontSize :12}:false"></div>
-        <data-list :datas="itemList">
-          <data-coloum
-            thing="items"
-            label="物品"
-            prop="name"
-            width="20%"
-          ></data-coloum>
-          <data-coloum thing="items" label="头像" prop="icon" width="20%">
-            <template v-slot="slotProps">
-              <img
-                :src="slotProps.item"
-                alt="英雄头像"
-                style="width: 60px; height: 30px; margin-top: 5px"
-              />
-            </template>
-          </data-coloum>
-          <data-coloum
-            thing="items"
-            label="使用次数"
-            prop="playeds"
-            width="30%"
-          ></data-coloum>
-          <data-coloum
-            thing="items"
-            label="胜率"
-            prop="winRates"
-            width="30%"
-          ></data-coloum>
-        </data-list>
-      </div>
-    </transition>
+    ">
+    <data-format
+      style="height: 200px"
+      @changeFormat="fetchDatas"
+    ></data-format>
+
+    <div v-show="show">
+      <div v-dht-loading.fullscreen="!show?{background:'white',fontSize :12}:false"></div>
+      <data-list :datas="itemList">
+        <data-coloum
+          thing="items"
+          label="物品"
+          prop="name"
+          width="20%"
+        ></data-coloum>
+        <data-coloum
+          thing="items"
+          label="头像"
+          prop="icon"
+          width="20%"
+        >
+          <template v-slot="slotProps">
+            <img
+              :src="slotProps.item"
+              alt="英雄头像"
+              style="width: 60px; height: 30px; margin-top: 5px"
+            />
+          </template>
+        </data-coloum>
+        <data-coloum
+          thing="items"
+          label="使用次数"
+          prop="playeds"
+          width="30%"
+        ></data-coloum>
+        <data-coloum
+          thing="items"
+          label="胜率"
+          prop="winRates"
+          width="30%"
+        ></data-coloum>
+      </data-list>
+    </div>
+
   </div>
 </template>
 
@@ -108,35 +114,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fade-enter-active  {
+// .fade-enter-active {
+//   transition: opacity 1s, width 0.5s;
+//   width: 100%;
+// }
+// .fade-enter  /* .fade-leave-active below version 2.1.8 */ {
+//   width: 0px;
+//   opacity: 0;
+// }
 
-      transition: opacity 1s  , width .5s;
-     width: 100%;
- 
+// .fade-leave-active {
+//   transition: opacity 0.5s, width 2s;
+//   width: 100%;
+//   opacity: 1;
+// }
+
+// .fade-leave-to {
+//   width: 50%;
+//   opacity: 0;
+// }
+.itemList {
+  img {
+    width: 40px !important;
+  }
 }
-.fade-enter  /* .fade-leave-active below version 2.1.8 */ {
-
-        width: 0px;
-        opacity: 0;
-    
-}
-
-.fade-leave-active{
-   transition: opacity .5s , width 2s;
-    width: 100%;
-    opacity: 1;
- 
-}
-
-.fade-leave-to{
-    width: 50%;
-   opacity: 0;
-
-}
-    .itemList{
-        img{
-            width: 40px !important;
-         
-        }
-    }
 </style>

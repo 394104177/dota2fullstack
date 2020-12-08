@@ -3,7 +3,7 @@
     <div
       class="newsListBox clear"
       v-for="(item, key) in pageDetails"
-      :key="key"
+      :key="key" @click="pushDetails(item._id)"
     >
       <div class="logo">
         <img :src="item.logo" alt="" />
@@ -64,6 +64,10 @@ export default {
         ).then(res=>{
            this.pageDetails= res.data
         })
+        },
+        pushDetails(page){
+            console.log('push')
+            this.$router.push(`/news/details/${page}`)
         }
     },
     created(){
@@ -77,11 +81,12 @@ export default {
     // console.log('route',this.$route)
     // this.$route.path = window.decodeURI(to.fullPath) 
     console.log(to)
-    this.fetchPage(1, to.params.newType)
+   
     // console.log( to.fullPath,window.decodeURI(to.fullPath))
     // to.fullPath = window.decodeURI(to.fullPath)
     // window.location.href ='/#'+ window.decodeURI(to.fullPath)
     next()
+     this.fetchPage(1, to.params.newType)
     }
 }
 </script>

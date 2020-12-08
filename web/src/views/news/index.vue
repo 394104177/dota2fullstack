@@ -2,7 +2,6 @@
   <div class="newsBox">
     <div class="newContainer">
       <article>
-        <div class="titleBar">你的位置：首页>全部攻略</div>
         <div class="newsLink">
           <ul class="clear">
             <li><router-link to="/news/comNews">综合新闻</router-link></li>
@@ -63,10 +62,12 @@ export default {
                                     border-color: #379be9;
                             }
                             a{
+                                box-sizing: border-box;
                                 width: 100%;
                                 display: block;
-                                    padding: 5px 0;
-                                  border: 1px solid #d9d9d9;
+                                padding: 5px 0;
+                                border: 1px solid #d9d9d9;
+                                background-color: #fff;
                                 &.router-link-exact-active{
                                             color: #379be9;
                                     border-color: #379be9;
