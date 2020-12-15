@@ -66,7 +66,7 @@ export default {
         })
         },
         pushDetails(page){
-            console.log('push')
+            console.log(this.$parent)
             this.$router.push(`/news/details/${page}`)
         }
     },

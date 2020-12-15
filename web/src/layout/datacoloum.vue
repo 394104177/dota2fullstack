@@ -14,10 +14,7 @@
       v-for="(item, index) in propdatas"
       :key="index"
       class="itemList"
-
-
-          :to="`/${thing}/details/${toUrl[index]}/`"
-     
+      :to="`/${thing}/details/${toUrl[index]}/`"
       tag="div"
     >
         

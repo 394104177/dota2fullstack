@@ -78,36 +78,25 @@
 </template>
 
 <script>
-
+import { mapState } from 'vuex'
 export default {
     data:()=>{
         return {
-            heroDatas:[],
+            // heroDatas:[],
             heroName:''
         }
     },
-    components:{
-    
-    },
+    computed:mapState({
+        heroDatas:state=>state.heroDatas
+    }),
     methods:{
-        myclick(event){
-            console.log('hello',event)
-        },
         toUrl(name){
             return `/heros/details/${name}/statistics`
         }
     },
     
     created(){
-       this.$http.get('/rest/heroes',{
-           headers:{
-               authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMmFhMDZhMmQxODliMzY3NGRiYmI5OCIsImlhdCI6MTU5Njc1MzUwNH0.cVGuBl5a_7i_ORPxOMWkbYLbZrAl6qdWacO_N92PUBQ"
-           }
-           
-       }).then(res=>{
-           console.log('created')
-           this.heroDatas = res.data
-       })
+
     }
   
 }

@@ -63,15 +63,16 @@
         <div class="mask"></div>
       </div>
     </div>
-    <div id="dota2_main">
+    <div id="dota2_main"  style="min-height: 1000px">
       <router-view />
     </div>
     <div id="dota2_footer">
       <div
         title="回到顶部"
         class="footer_scrollup text-center"
+        
       >
-        <span class="text-white">^</span>
+        <a class="text-white" href="#nav_main">^</a>
       </div>
       <div class="footer_footer"></div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="hero">
+  <div class="hero"  >
     <div class="hero_container text-center">
       <header>
         <ul class="d-flex ai-center">
@@ -29,11 +29,11 @@
         class="d-flex"
       >
 
+       
         <router-view></router-view>
-
         <div
           class="accordion text-white"
-          v-if="show"
+          v-if="singleHero"
         >
           <div class="mask"></div>
           <div class="talent">
@@ -75,7 +75,8 @@
               </div>
             </div>
           </div>
-          <div
+          <div v-if="singleHero">
+          <div 
             class="skill"
             v-for="skills in singleHero.skills"
             :key="skills._id"
@@ -113,6 +114,7 @@
               class="text-left"
             ></div>
           </div>
+         </div>
         </div>
 
       </main>
@@ -122,25 +124,23 @@
 
 <script>
 
-    // import dataList from '@/layout/datalist.vue'
-    // import dataColoum from '@/layout/datacoloum.vue'
 export default {
     data:()=>{
         return {
             heroDatas:null,
-           show:false
+            // heroId,
+            show:false
         }
     },
-
- 
     computed:{
         singleHero(){
+         
            let res =  this.heroDatas?this.heroDatas:null
+              console.log('singleHero',res)
             return  res
         }
     },
- 
-       beforeRouteUpdate (to, from, next) {
+    beforeRouteUpdate (to, from, next) {
     // 在当前路由改变，但是该组件被复用时调用
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
@@ -168,7 +168,7 @@ export default {
          
            this.heroDatas = res.data
            this.show= true
-         console.timeEnd('startFetchHero')
+      
         })
       },
         
@@ -181,6 +181,7 @@ export default {
            }
            
        }).then(res=>{
+           console.log('fetchdata')
          let hero =   res.data.find(item=>{
            
               return  item.name === this.$route.params.id
@@ -191,9 +192,14 @@ export default {
      }
     },
     created(){
-     console.log('detailCreate')
+     console.log('detailCreated')
       this.fetchDatas()
-    
+    },
+    mounted(){
+        console.log('indexmounted',this.singleHero)
+    },
+    updated(){
+        console.log('indexupdated',this.singleHero)
     }
   
 }

@@ -24,10 +24,11 @@
 import dataList from '@/layout/datalist.vue'
 import dataColoum from '@/layout/datacoloum.vue'
 import dataFormat from '@/layout/format.vue'
+import { mapState } from 'vuex'
 export default {
     data:()=>{
         return {
-            heroDatas:[],
+          
             skill:'all',
             ladder:'all'
         }
@@ -37,21 +38,16 @@ export default {
         dataColoum,
         dataFormat
     },
+    computed:mapState({
+        heroDatas:state=>state.heroDatas
+    }),
     methods:{
      
         fetchDatas(skill,ladder){
             this.skill = skill
             this.ladder = ladder
-        
-            this.$http.get(`/rest/heroes/?skill=${skill}&ladder=${ladder}`,{
-           headers:{
-               authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMmFhMDZhMmQxODliMzY3NGRiYmI5OCIsImlhdCI6MTU5Njc1MzUwNH0.cVGuBl5a_7i_ORPxOMWkbYLbZrAl6qdWacO_N92PUBQ"
-           }
-           
-       }).then(res=>{
-           console.log('created')
-           this.heroDatas = res.data
-       })
+          this.$store.dispatch('getHeroData',{skill,ladder})
+      
         }
     },
     

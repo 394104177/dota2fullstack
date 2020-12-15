@@ -99,7 +99,7 @@ module.exports = app => {
       allHero.find(i => {
         if (i._id.toString() === item.hero.toString()) {
           item._doc.hero = { icon: i.icon, name: i.name }
-          item._docname = i.name
+          item._doc.name = i.name
           //   console.log(Object.getOwnPropertyDescriptors(item))
           console.log(item)
         }

@@ -57,7 +57,7 @@ const routes = [
                     {
                         path: '/heros/gpm',
                         name: 'gpm',
-                        component: () => import(/* webpackChunkName: "dmg" */ '../views/Data/herosData/gpm.vue')
+                        component: () => import(/* webpackChunkName: "gpm" */ '../views/Data/herosData/gpm.vue')
                     }
 
                 ]

@@ -23,7 +23,9 @@
 <script>
 
 export default {
-
+     created(){
+         this.$store.dispatch('getHeroData',{skill:'all',ladder:'all'})
+     }
 }
 </script>
 
